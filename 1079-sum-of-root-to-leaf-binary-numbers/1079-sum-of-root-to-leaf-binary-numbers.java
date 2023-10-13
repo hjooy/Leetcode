@@ -16,23 +16,19 @@
 class Solution {
     int result = 0;
     public int sumRootToLeaf(TreeNode root) {
-        StringBuilder str = new StringBuilder();
-        dfs(root, str);
+        dfs(root, 0);
         return result;
     }
 
-    private void dfs(TreeNode cur, StringBuilder str) {
+    private void dfs(TreeNode cur, int sum) {
         if (cur == null) return;
-        str.append(cur.val);
-        dfs(cur.left, str);
-        dfs(cur.right, str);
+        sum += cur.val;
         if(cur.left == null && cur.right == null) {
-            int pow = 1;
-            for (int i = str.length() - 1; i >= 0 ; i--) {
-                result += (str.charAt(i) - '0') * pow;
-                pow *= 2;
-            }
-        } 
-        str.deleteCharAt(str.length() - 1);
+            result += sum;
+        }
+        dfs(cur.left, sum * 2);
+        dfs(cur.right, sum * 2);
+        sum -= cur.val;
+        sum /= 2;
     }
 }
