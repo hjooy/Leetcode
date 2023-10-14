@@ -16,19 +16,13 @@
 class Solution {
     int result = 0;
     public int sumRootToLeaf(TreeNode root) {
-        dfs(root, 0);
-        return result;
+        return dfs(root, 0);
     }
 
-    private void dfs(TreeNode cur, int sum) {
-        if (cur == null) return;
-        sum += cur.val;
-        if(cur.left == null && cur.right == null) {
-            result += sum;
-        }
-        dfs(cur.left, sum * 2);
-        dfs(cur.right, sum * 2);
-        sum -= cur.val;
-        sum /= 2;
+    private static int dfs(TreeNode cur, int sum) {
+        if (cur == null) return 0;
+        sum = (sum << 1) + cur.val;
+        if(cur.left == null && cur.right == null) return sum;
+        return dfs(cur.left, sum) + dfs(cur.right, sum);
     }
 }
