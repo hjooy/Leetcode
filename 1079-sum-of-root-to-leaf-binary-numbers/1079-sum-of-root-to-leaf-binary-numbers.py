@@ -8,15 +8,15 @@ class Solution:
     def sumRootToLeaf(self, root: Optional[TreeNode]) -> int:
         result = 0
         def dfs(cur: TreeNode, sum: int) -> int:
-            if cur is None: return
+            if not cur: return
             sum += cur.val
             dfs(cur.left, sum * 2)
             dfs(cur.right, sum * 2)
-            if cur.left is None and cur.right is None:
+            if not cur.left and not cur.right:
                 nonlocal result
                 result += sum
-            sum /= 2
-            sum -= cur.val
+            #sum /= 2
+            #sum -= cur.val
 
         dfs(root, 0)
         return result
