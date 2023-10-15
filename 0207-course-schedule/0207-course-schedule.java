@@ -11,8 +11,8 @@ class Solution {
         for (int[] prerequisite : prerequisites) {
             graph[prerequisite[0]].add(prerequisite[1]);
         }
-        for (int[] prerequisite : prerequisites) {
-            if (has_cycle(on_path, prerequisite[0])) return false;
+        for (int i = 0; i < numCourses; i++) {
+            if (has_cycle(on_path, i)) return false;
         }
         return true;
     }
