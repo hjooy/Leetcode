@@ -8,7 +8,7 @@ class Solution:
             graph[pair[1]].append(pair[0])
             indegree[pair[0]] += 1
 
-        queue = deque([])
+        queue = deque()
         for i in range(numCourses):
             if indegree[i] == 0:
                 queue.append(i)
