@@ -12,9 +12,9 @@ class Solution {
             }
         }
 
-        for (int i = 0; i < 101; i++) {
-            if (count[i] == 1) {
-                sum += i;
+        for (int num : nums) {
+            if (count[num] == 1) {
+                sum += num;
             }
         }
         return sum;
