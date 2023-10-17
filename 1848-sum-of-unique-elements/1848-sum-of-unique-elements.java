@@ -1,27 +1,22 @@
 class Solution {
     public int sumOfUnique(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
-        Set<Integer> keySet;
-        int ans = 0;
-        int tmp = 0;
+        int[] count = new int[101];
+        int sum = 0;
 
-        for (int i = 0; i < nums.length; i++) {
-            if (!map.containsKey(nums[i])) {
-                map.put(nums[i], 1);
+        for (int num : nums) {
+            if (count[num] == 0) {
+                count[num] = 1;
             }
-            else {
-                tmp = map.get(nums[i]);
-                map.replace(nums[i], tmp + 1);
+            else if (count[num] == 1) {
+                count[num] = -1;
             }
         }
 
-        keySet = map.keySet();
-        for (Integer i : keySet) {
-            if (map.get(i) == 1){
-                ans += i;
+        for (int i = 0; i < 101; i++) {
+            if (count[i] == 1) {
+                sum += i;
             }
         }
-
-        return ans;
+        return sum;
     }
 }
