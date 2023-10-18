@@ -1,15 +1,11 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        dict = {}
+        list = [0] * 26
         for c in s:
-            if c in dict.keys():
-                dict[c] += 1
-            else: dict[c] = 1
+            list[ord(c) - ord('a')] += 1
         for c in t:
-            if c in dict.keys():
-                dict[c] -= 1
-            else: dict[c] = -1
-        for key in dict.keys():
-            if dict[key] is not 0:
+            list[ord(c) - ord('a')] -= 1
+        for x in list:
+            if x is not 0:
                 return False
         return True
