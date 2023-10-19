@@ -1,11 +1,12 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        list = [0] * 26
-        for c in s:
-            list[ord(c) - ord('a')] += 1
-        for c in t:
-            list[ord(c) - ord('a')] -= 1
-        for x in list:
-            if x is not 0:
-                return False
-        return True
+            if len(s) != len(t): return False
+            for c in set(s):
+                if s.count(c) != t.count(c):
+                    return False
+            return True
+
+# Time complexity: O(n^2)
+#               - len(): O(1) / set(): O(n) / str.count(): O(n)
+# Space complexity: O(n)
+#               - set(n): O(n)
