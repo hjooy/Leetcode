@@ -1,15 +1,16 @@
 class Solution {
     public boolean isAnagram(String s, String t) {
         if (s.length() != t.length()) return false;
-        Map<Character, Integer> dict = new HashMap<>();
-        for (char c : s.toCharArray()) {
-            dict.put(c, dict.getOrDefault(c, 0) + 1);
+        int[] arr = new int[26];
+        int tmp = 0;
+        for (int i = 0; i < s.length(); i++) {
+            tmp = s.charAt(i) - 'a';
+            arr[tmp] += 1;
+            tmp = t.charAt(i) - 'a';
+            arr[tmp] -= 1;
         }
-        for (char c : t.toCharArray()) {
-            dict.put(c, dict.getOrDefault(c, 0) - 1);
-        }
-        for (int x : dict.values()) {
-            if (x != 0) return false;
+        for (int i = 0; i < 26; i++) {
+            if (arr[i] != 0) return false;
         }
         return true;
     }
