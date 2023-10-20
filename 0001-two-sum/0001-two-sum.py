@@ -1,12 +1,14 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         ans = []
-        for i in range(len(nums)):
-            for j in range(i+1, len(nums)):
-                # should not use is operator to compare integers!
-                if nums[i] + nums[j] == target: 
-                    ans = [i, j]
+        dict = {}
+        for i in range(len(nums)):          # O(n)
+            complement = target - nums[i]
+            if complement in dict:          # O(1) 
+                ans = [i, dict.get(complement)]
+                break
+            else: dict[nums[i]] = i
         return ans
 
-# Time complexity: O(n^2)
-# Space complexity: O(1)
+# Time complexity: O(n)
+# Space complexity: O(n)
