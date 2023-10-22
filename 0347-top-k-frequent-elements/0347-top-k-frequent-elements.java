@@ -6,22 +6,15 @@ class Solution {
             map.put(n, map.getOrDefault(n, 0) + 1);
         }
 
-        Map<Integer, List<Integer>> freqMap = new TreeMap<>();
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b)->map.get(b) - map.get(a));
         for (int key : map.keySet()) {
-            int cnt = -map.get(key);
-            if (freqMap.get(cnt) == null) {
-                freqMap.put(cnt, new LinkedList<Integer>());
-            }
-            freqMap.get(cnt).add(key);
+            maxHeap.add(key);
         }
 
         int[] ans = new int[k];
-        for (int key : freqMap.keySet()) {
-            for (int n : freqMap.get(key)) {
-                if (k == 0) break;
-                ans[k-1] = n;
-                k--;
-            }
+        while (k > 0) {
+            ans[k-1] = maxHeap.poll();
+            k--;
         }
 
         return ans;
