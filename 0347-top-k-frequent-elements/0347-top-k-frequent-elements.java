@@ -6,15 +6,23 @@ class Solution {
             map.put(n, map.getOrDefault(n, 0) + 1);
         }
 
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b)->map.get(b) - map.get(a));
+        List<Integer>[] bucket = new List[nums.length + 1];
         for (int key : map.keySet()) {
-            maxHeap.add(key);
+            int cnt = map.get(key);
+            if (bucket[cnt] == null) {
+                bucket[cnt] = new LinkedList<Integer>();
+            }
+            bucket[cnt].add(key);
         }
 
         int[] ans = new int[k];
-        while (k > 0) {
-            ans[k-1] = maxHeap.poll();
-            k--;
+        for (int i = bucket.length - 1; i >= 0; i--) {
+            if (bucket[i] == null) continue;
+            for (int num : bucket[i]) {
+                if (k == 0) break;
+                ans[k-1] = num;
+                k--;
+            }
         }
 
         return ans;
