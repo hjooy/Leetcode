@@ -1,6 +1,6 @@
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        ans = []
+        ans = [ 0 for _ in range(len(nums)) ]
         forward = []
         backward = []
         accumulated_product = 1
@@ -15,10 +15,10 @@ class Solution:
         
         for i in range(len(nums)):
             if i - 1 < 0:
-                ans.append(backward[i + 1])
+                ans[i] = backward[i + 1]
             elif i + 1 >= len(nums):
-                ans.append(forward[i - 1])
+                ans[i] = forward[i - 1]
             else:
-                ans.append(forward[i - 1] * backward[i + 1])
+                ans[i] = forward[i - 1] * backward[i + 1]
         
         return ans
