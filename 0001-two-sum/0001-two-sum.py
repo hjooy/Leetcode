@@ -1,10 +1,13 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         dict = {}
-        for i in range(len(nums)):          # O(n)
-            if target - nums[i] in dict:    # O(1) 
-                return [i, dict[target - nums[i]]]
-            dict[nums[i]] = i
+        for i, num in enumerate(nums):
+            dict[num] = i
+        
+        for i, num in enumerate(nums):
+            if target - num in dict and i != dict[target - num]:
+                return [i, dict[target - num]]
+
         return []
 
 # Time complexity: O(n)
