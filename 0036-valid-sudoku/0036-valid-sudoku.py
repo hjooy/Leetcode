@@ -1,10 +1,10 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        seen = sum(
-            ([(row_num, n), (n, col_num), (row_num//3, col_num//3, n)]
-            for row_num in range(9) for col_num in range(9)
-            for n in board[row_num][col_num]
-            if n != "."), []) 
-            # sum() usage: flattening a list of lists
-
-        return len(seen) == len(set(seen))
+        seen = set()
+        return not any(x in seen or
+                        seen.add(x)
+                        for row_num, row in enumerate(board)
+                        for col_num, n in enumerate(row)
+                        if n != "."
+                        for x in ((n, row_num), (col_num, n), (row_num//3, col_num//3, n)))
+                        # set.add() always returns None
