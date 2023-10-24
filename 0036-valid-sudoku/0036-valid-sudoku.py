@@ -1,11 +1,10 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        ans = []
+        seen = sum(
+            ([(row_num, n), (n, col_num), (row_num//3, col_num//3, n)]
+            for row_num, row in enumerate(board)
+                for col_num, n in enumerate(row)
+                    if n != "."), []) 
+            # sum() usage: flattening a list of lists
 
-        for i in range(9):
-            for j in range(9):
-                number = board[i][j]
-                if number != ".":
-                    ans += [(i, number), (number, j), (i//3, j//3, number)]
-        
-        return len(ans) == len(set(ans))
+        return len(seen) == len(set(seen))
