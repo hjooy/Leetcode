@@ -1,9 +1,18 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        seen = set()
-        return 1 == max(list(Counter(x
-                        for row_num, row in enumerate(board)
-                        for col_num, n in enumerate(row)
-                        if n != "."
-                        for x in ((n, row_num), (col_num, n), (row_num//3, col_num//3, n))).values()) + [1])
-                        # .append(1) instead of + [1] does not work. append() returns None in Python
+        for row in board:
+            if not self.is_valid(row): return False
+
+        for col in zip(*board):
+            if not self.is_valid(col): return False
+
+        for i in (0, 3, 6):
+            for j in (0, 3, 6):
+                sub_box = [board[x][y] for x in range(i, i+3) for y in range(j, j+3)]
+                if not self.is_valid(sub_box): return False
+        
+        return True
+
+    def is_valid(self, input) -> bool:
+        seen = [n for n in input if n != "."]
+        return len(seen) == len(set(seen))
