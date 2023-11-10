@@ -3,8 +3,8 @@ class Solution:
         num_set = set(numbers)
         for i, n1 in enumerate(numbers, 1):
             if target - n1 in num_set:
-                for j, n2 in enumerate(numbers[i:], i + 1):
-                    if n2 == target - n1:
-                        return [i, j]
+                for j in range(i, len(numbers)):
+                    if numbers[j] + n1 == target:
+                        return [i, j + 1]
 
         return []
