@@ -10,5 +10,6 @@ class Solution:
                 dict[n] = length
                 dict[n - left] = length
                 dict[n + right] = length
-                best = max(best, length)
+                if best < length:
+                    best = length
         return best
