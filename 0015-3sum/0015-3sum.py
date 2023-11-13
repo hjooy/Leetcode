@@ -16,7 +16,7 @@ class Solution:
                 elif sum < -n:
                     j += 1
                 else:
-                    result.add(tuple(sorted([n, nums[j], nums[k]])))
+                    result.add((n, nums[j], nums[k]))
                     k -= 1
                            
         return [list(i) for i in result]
