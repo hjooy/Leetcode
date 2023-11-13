@@ -19,4 +19,4 @@ class Solution:
                     result.add((n, nums[j], nums[k]))
                     k -= 1
                            
-        return [list(i) for i in result]
+        return result
