@@ -6,19 +6,18 @@ class Solution {
         return result;
     }
 
-    public void helper(int[] candidates, int i, int sum, int target, Stack<Integer> com, List<List<Integer>> result) {
+    public void helper(int[] candidates, int idx, int sum, int target, Stack<Integer> com, List<List<Integer>> result) {
         if (sum > target) return;
         else if (sum == target) {
             result.add(new ArrayList(com));
             return;
         }
-        sum += candidates[i];
-        com.push(candidates[i]);
-        helper(candidates, i, sum, target, com, result);
-        sum -= candidates[i];
-        com.pop();
-        if (i < candidates.length - 1) {
-            helper(candidates, i + 1, sum, target, com, result);
+        for (int i = idx; i < candidates.length; i++) {
+            sum += candidates[i];
+            com.push(candidates[i]);
+            helper(candidates, i, sum, target, com, result);
+            sum -= candidates[i];
+            com.pop();
         }
     }
 }
