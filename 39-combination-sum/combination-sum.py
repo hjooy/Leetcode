@@ -7,8 +7,7 @@ class Solution:
                 result.append(com);
                 return;
             sum += candidates[i]
-            com1 = com[:]
-            com1.append(candidates[i])
+            com1 = com[:] + [candidates[i]]
             helper(i, sum, com1)
             if i < len(candidates) - 1:
                 sum -= candidates[i]
