@@ -3,10 +3,11 @@ class Solution:
         dp = [[] for _ in range(target + 1)]
         for c in candidates:
             for i in range(c, target + 1):
-                if i == c: dp[i].append([c])
-                elif i > c:
-                    for com in dp[i - c]:
-                        dp[i].append(com + [c])
+                if i == c: 
+                    dp[i].append([c])
+                    continue
+                for com in dp[i - c]:
+                    dp[i].append(com + [c])
         return dp[-1];
 
     # Does list concatenation with the `+` operator always return a new `list` instance?
