@@ -1,17 +1,13 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        result = []
-        n = len(candidates)
-        def helper(idx: int, sum: int, com: List[int]):
-            if sum > target: return
-            elif sum == target:
-                result.append(com);
-                return;
-            for i in range(idx, n):
-                helper(i, sum + candidates[i], com + [candidates[i]])
-            
-        helper(0, 0, []);
-        return result;
+        dp = [[] for _ in range(target + 1)]
+        for c in candidates:
+            for i in range(c, target + 1):
+                if i == c: dp[i].append([c])
+                elif i > c:
+                    for com in dp[i - c]:
+                        dp[i].append(com + [c])
+        return dp[-1];
 
     # Does list concatenation with the `+` operator always return a new `list` instance?
     # https://stackoverflow.com/questions/64644671/does-list-concatenation-with-the-operator-always-return-a-new-list-instanc
