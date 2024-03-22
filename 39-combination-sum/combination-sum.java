@@ -1,23 +1,23 @@
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<>();
-        Stack<Integer> s = new Stack<>();
-        helper(candidates, 0, 0, target, s, result);
-        return result;
-    }
+        List<List<List<Integer>>> dp = new ArrayList<>();
+        for (int i = 0; i <= target; i++) {
+            dp.add(new ArrayList<List<Integer>>());
+        }
 
-    public void helper(int[] candidates, int idx, int sum, int target, Stack<Integer> com, List<List<Integer>> result) {
-        if (sum > target) return;
-        else if (sum == target) {
-            result.add(new ArrayList(com));
-            return;
+        for (int c : candidates) {
+            for (int i = c; i <= target; i++) {
+                if (i == c) dp.get(i).add(Arrays.asList(c));
+                else if (i > c) {
+                    for (List<Integer> comb : dp.get(i - c)) {
+                        List<Integer> tmp = new ArrayList<>();
+                        tmp.addAll(comb);
+                        tmp.add(c);
+                        dp.get(i).add(tmp);
+                    }
+                }
+            }
         }
-        for (int i = idx; i < candidates.length; i++) {
-            sum += candidates[i];
-            com.push(candidates[i]);
-            helper(candidates, i, sum, target, com, result);
-            sum -= candidates[i];
-            com.pop();
-        }
+        return dp.get(target);
     }
 }
