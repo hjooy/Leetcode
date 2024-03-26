@@ -8,15 +8,14 @@ class Solution {
 
     private void backtrack(int[] nums, List<Integer> cur, List<List<Integer>> result) {
         if (cur.size() == nums.length) {
-            result.add(cur);
+            result.add(new ArrayList<>(cur));
             return;
         }
         for (int n : nums) {
             if (cur.contains(n)) continue;
-            List<Integer> nextCur = new ArrayList<>();
-            nextCur.addAll(cur);
-            nextCur.add(n);
-            backtrack(nums, nextCur, result);
+            cur.add(n);
+            backtrack(nums, cur, result);
+            cur.remove(cur.size() - 1);
         }
     }
 }
