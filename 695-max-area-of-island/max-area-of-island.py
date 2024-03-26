@@ -10,6 +10,6 @@ class Solution:
         for r in range(len(grid)): 
             for c in range(len(grid[0])): 
                 if grid[r][c] == 1:
-                    ans = max(ans, dfs(r, c)
-                    )
+                    ans = max(ans, dfs(r, c))
+                    
         return ans
