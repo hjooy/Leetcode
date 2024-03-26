@@ -3,11 +3,13 @@ class Solution:
         output = []
         def backtrack(cur: List[int]):
             if len(cur) == len(nums):
-                output.append(cur)
+                output.append(cur[:])
                 return;
             for i, n in enumerate(nums):
                 if n in cur: continue
-                backtrack(cur + [n])
+                cur.append(n)
+                backtrack(cur)
+                cur.pop()
 
         backtrack([])
 
