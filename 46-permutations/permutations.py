@@ -1,16 +1,14 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         output = []
-        def dfs(cur: List[int], used: List[int]):
-            if used.count(1) == len(used):
+        def dfs(cur: List[int]):
+            if len(cur) == len(nums):
                 output.append(cur)
                 return;
             for i, n in enumerate(nums):
-                if used[i] != 1:
-                    new_used = used[:]
-                    new_used[i] = 1
-                    dfs(cur + [nums[i]], new_used)
-            
-        dfs([], [0] * (len(nums)))
+                if n in cur: continue
+                dfs(cur + [n])
+
+        dfs([])
 
         return output
