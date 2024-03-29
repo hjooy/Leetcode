@@ -10,9 +10,7 @@ class Solution {
 
     private void backtrack(int idx, List<Integer> cur, int[] nums, Set<List<Integer>> result) {
         if (idx == nums.length) {
-            List<Integer> tmp = new ArrayList<>(cur);
-            //tmp.sort(Comparator.naturalOrder());
-            result.add(tmp);
+            result.add(new ArrayList<>(cur));
             return;
         }
         
