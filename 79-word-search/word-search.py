@@ -2,6 +2,18 @@ class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         m, n = len(board), len(board[0])
 
+        if len(word) > m * n: return False
+
+        boardDict = defaultdict(int)
+        for i in range(m):
+            for j in range(n):
+                boardDict[board[i][j]] += 1
+        
+        wordDict = Counter(word)
+        for c in wordDict:
+            if c not in boardDict or wordDict[c] > boardDict[c]:
+                return False
+
         def backtrack(idx: int, r: int, c: int) -> bool:
             if idx == len(word):
                 return True
