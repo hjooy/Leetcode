@@ -1,28 +1,26 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        directions = [(0, 1), (0, -1), (-1, 0), (1, 0)]
-        result = [False]
-        m = len(board)
-        n = len(board[0])
-        visited = set()
+        m, n = len(board), len(board[0])
 
-        def backtrack(idx: int, r: int, c: int, visited: Set[Tuple[int]]):
+        def backtrack(idx: int, r: int, c: int) -> bool:
             if idx == len(word):
-                result[0] = True
-                return
+                return True
 
-            if r < 0 or r >= m or c < 0 or c >= n or (r, c) in visited or board[r][c] != word[idx]:
-                return
+            if r < 0 or r >= m or c < 0 or c >= n or board[r][c] != word[idx]:
+                return False
 
-            visited.add((r, c))
-            for direction in directions:
-                backtrack(idx + 1, r + direction[0], c + direction[1], visited)
-            visited.remove((r, c))
+            tmp = False
+            board[r][c] = "-"
+            tmp = backtrack(idx + 1, r + 1, c) or \
+                backtrack(idx + 1, r - 1, c) or \
+                backtrack(idx + 1, r, c + 1) or \
+                backtrack(idx + 1, r, c - 1)
+            board[r][c] = word[idx]
+            return tmp
 
         for i in range(m):
             for j in range(n):
                 if board[i][j] == word[0]:
-                    backtrack(0, i, j, visited)
-                if result[0]: break
+                    if backtrack(0, i, j): return True
 
-        return result[0]
+        return False
