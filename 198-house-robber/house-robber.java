@@ -1,19 +1,18 @@
 class Solution {
     public int rob(int[] nums) {
         int n = nums.length;
-        int ans = 0;
-        int[] dp = new int[n];
+        if (n == 1) return nums[0];
+        else if (n == 2) return nums[0] > nums[1] ? nums[0] : nums[1];
+        
+        int dp1 = nums[0];
+        int dp2 = nums[0] > nums[1] ? nums[0] : nums[1];
 
-        for (int i = 0; i < n; i++) {
-            if (i < 2) dp[i] = nums[i];
-            else if (i < 3) dp[i] = nums[i] + dp[i - 2];
-            else dp[i] = (dp[i - 2] > dp[i - 3] ? dp[i - 2] : dp[i - 3]) + nums[i];
+        for (int i = 2; i < n; i++) {
+            int tmp = dp2;
+            dp2 = dp1 + nums[i] > dp2 ? dp1 + nums[i] : dp2;
+            dp1 = tmp;
         }
 
-        for (int i : dp) {
-            if (i > ans) ans = i;
-        }
-
-        return ans;
+        return dp1 > dp2 ? dp1 : dp2;
     }
 }
