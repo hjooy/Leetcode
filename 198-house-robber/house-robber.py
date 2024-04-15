@@ -1,12 +1,14 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        dp = [0] * len(nums)
+        if len(nums) == 1: 
+            return nums[0]
 
-        for i, n in enumerate(nums):
-            if i <= 1: dp[i] = n
-            elif i < 3:
-                dp[i] = n + dp[i - 2]
-            else:
-                dp[i] = n + max(dp[i - 2], dp[i - 3])
-        
-        return max(dp)
+        dp1 = nums[0]
+        dp2 = nums[1] if nums[1] > nums[0] else nums[0]
+
+        for n in nums[2:]:
+            tmp = dp2
+            dp2 = dp1 + n if dp1 + n > dp2 else dp2
+            dp1 = tmp
+
+        return dp1 if dp1 > dp2 else dp2
